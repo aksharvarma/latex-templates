@@ -1,0 +1,185 @@
+\documentclass[11pt, a4paper]{article}
+
+% One of the following is required: problemset, recitation, quiz, exam
+% The following are required: handoutnum, assigneddate.
+% If there is only one date, set both duedate and assigneddate to be the same.
+% Do not change handoutnum or dates
+\usepackage[
+exam,
+handoutnum=1,
+assigneddate={Jan 26, 2021}, duedate={Feb 02, 2021},
+% % Uncomment the line below IF these are solutions
+% solution,
+% % Uncomment the line below IF you are a student submitting solutions
+% student,
+% % Replace with your name
+name={Fill Submitter's Name},
+% Replace with names of all group members who collarborated on this.
+% If unsure about ordering, then you can follow the convention in theory
+% and list names alphabetically by last name.
+groupmembers={Fill collaborators' names}
+]{course-handouts-preamble}
+% Be careful of commas and put text with spaces within {curly braces}
+% Don't use a comma at the end, but do use commas between options.
+% Weird errors occur otherwise, I wasted some time failing to debug those.
+
+% DO NOT EDIT
+% These are fixed values that should not be changed during this course.
+\pgfkeys{/chp/fixed/.cd,
+  instructorname = {Ravi Sundaram},
+  coursename = {CS3000 Algorithms \& Data}}
+% Alternatively you can move the above lines into a file cs3000-spring-21-info.tex
+% and replace it with `\input{cs3000-spring-21-info}`
+
+
+% Add any macros you want below, or put them in a separate file and \input{file}
+% keeping the preamble clean can keep you sane.
+
+%
+\begin{document}
+% Do not change either of the below lines.
+\insertHandoutInfoBox{}
+\ifbool{isexam}{\input{exam-blurb}} %This shouldn't throw an error, but comment it out if it does throw an error.
+
+% Start adding content from below here.
+
+\newproblem{True/False}{10}
+Indicate whether these statements are \textbf{T}rue or \textbf{F}alse by writing \textbf{T}/\textbf{F} in the final column:
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{4ex}
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{|l|p{0.7\textwidth}|c|}
+    \hline
+    \ifbool{isexamversionA}{
+    1 & Asymptotics: $(\log n)^{\log n} = \omega(\log n)$ & \\
+    \hline
+    2 & For any 2 functions $f$ and $g$, we always have that either $f =
+  O(g)$ or $g  = \Theta(f)$. & \\
+    \hline
+    3 & If all of the edge capacities in a graph are an integer multiple of 2020, then the value of the maximum flow from source to sink will be a multiple of 2020. & \\
+    \hline
+    4 & In a directed graph $G = (V, E)$ with capacities on edges and a specified source $s$ and sink $t$ the set of nodes in the minimum $s-t$ cut is always unique. & \\
+    \hline
+    5 & In a connected weighted graph with distinct positive weights, the edge
+  with maximum weight is never in the minimum spanning tree. & \\
+        \hline
+    6 & Given $P$ the product of two $n$-bit numbers it is not known how to find factors $A$ and $B$ such that $P = A\times B$, in poly$(n)$ time. & \\
+        \hline
+    7 & If there is a polynomial-time algorithm for any \textbf{NP}-Complete problem, then every problem in \textbf{NP} has a polynomial-time algorithm. & \\
+        \hline
+    8 & The 0-1 Knapsack problem can be solved in pseudo-polynomial time. & \\
+        \hline
+    9 & Finding the maximum and minimum of an array of $n$ numbers can be done in $\Theta(n)$ time but finding the maximum and $2^{\textrm{nd}}$ maximum needs $\omega(n)$ time. & \\
+        \hline
+    10 & We can implement a stack, a queue and a min-heap using an array. & \\
+    }{
+    1 & Asymptotics: $(\log n)^{\log n} = o(\log n)$ & \\
+    \hline
+    2 & For  any 2 functions $f$  and $g$, we
+always have that either $f = \Omega(g)$ or $g = \Theta(f)$. & \\
+    \hline
+    3 & If none of the edge capacities in a graph are an integer multiple of 2020, then the value of the maximum flow from source to sink will never be a multiple of 2020. & \\
+    \hline
+    4 & Every \textbf{Undecidable} problem can be solved by an exponential time algorithm. &  \\
+        \hline
+    5 & In a connected weighted graph with distinct positive weights, the edge
+  with minimum weight is always in the minimum spanning tree. & \\
+        \hline
+    6 & Given $n$-bit numbers, $A$ and $B$, the product $P = A\times B$ cannot be calculated in poly$(n)$ time. & \\
+        \hline
+    7 & If there is a polynomial-time algorithm for any \textbf{NP}-Complete problem, then every problem in \textbf{NP} has a polynomial-time algorithm. & \\
+        \hline
+    8 & The fractional Knapsack problem can be solved in polynomial time. & \\
+        \hline
+    9 & Finding the maximum and minimum of an array of $n$ numbers can be done in $\Theta(n)$ time but finding the minimum and $2^{\textrm{nd}}$ minimum needs $\omega(n)$ time.& \\
+        \hline
+    10 & The Diffie-Hellman key exchange protocol can be implemented without using fast modular exponentiation. & \\
+
+    }
+    \hline
+  \end{tabular}
+\end{table}
+
+\newpage
+\newproblem{Recurrences}{5}
+Use the \textbf{recursion tree method} to solve the following recurrence:
+\ifbool{isexamversionA}{
+\begin{align*}
+  T(n) = 4T(n/4) + n; \hspace{0.15in} T(1) = 1
+\end{align*}
+}{
+\begin{align*}
+  T(n) = 3T(n/3) + n; \hspace{0.15in} T(1) = 1
+\end{align*}
+
+}
+
+  \newpage
+  \newproblem{Rotated and Sorted}{7+8}
+Suppose you are given a array of $n$ distinct numbers which was sorted and then rotated $k$ indices, for some unknown integer $k$ between 1 and $n-1$. That is, you are given an array $A[1..n]$ such that some prefix $A[1..k]$ is sorted in increasing order, the corresponding suffix $A[k+1..n]$ is sorted in decreasing order, and $A[n]<A[1]$. For example, you might be given the following 16-element array (where $k=10$): $[9, 13, 16, 20, 21, 24, 25, 26, 27, 30, ||, 1, 2, 3, 5, 6, 8]$
+
+\begin{enumerate}[label=\alph*)]
+\item Describe and analyze an algorithm to compute the unknown integer $k$ that runs in $\Theta(\log n)$ time.
+  \vspace*{3in}
+\item Describe  and  analyze  an  algorithm  to  determine  if  the  given  array contains a given number $x$ that runs in $\Theta(\log n)$ time assuming you know the value of $k$ already.
+\end{enumerate}
+
+\newpage
+\newproblem{Reducing 2-coloring to SAT}{10+5}
+\begin{problem}[2-coloring]
+  Given a graph $G=(V, E)$, where the graph has $|V|$ nodes and $|E|$ edges, is there a way to color the nodes $V$ either black or white such that for every edge, it has two different colors on its endpoints?
+\end{problem}
+
+\begin{problem}[SAT]
+  Given $n$ variables $x_1, x_2, \dots, x_n$, and $m$ clauses $C_1, C_2, \dots, C_m$ with each clause is an OR between some literals $z_i$ and each literal is either a variable or the negation of a variable, does there exist an assignment of True/False to the variables such that $C_1 \land C_2 \land \dots \land C_m$ is True?
+\end{problem}
+
+\noindent
+\textit{(Hint: Note that  $(x_1 \lor x_2) \land (\neg x_1 \lor \neg x_2)$ is satisfied when exactly one of $x_1, x_2$ are true. Use this fact to enforce the coloring constraint.)}
+
+\begin{enumerate}[label=\alph*.]
+\item Reduce the 2-coloring problem to SAT. That is, write a polynomial sized set of clauses (need not have 3 literals each) using a polynomial number of variables such that if there is a satisfying assignment if and only if there is a 2-coloring. Briefly describe what the variables and clauses represent.
+\item Does this reduction imply that 2-coloring is NP-Complete? Why?
+\end{enumerate}
+
+
+\newpage
+
+\ifbool{isexamversionA}{\newproblem{Increments and Doublings}{15}
+Consider the following process. At all times you have a single positive integer $x$, which is initially equal to 1. In each step, you can either increment $x$ by 1 or double $x$. Your goal is to produce a target value $n$. For example, you can produce the integer 10 in four steps as follows: $1 \rightarrow 2 \rightarrow 4 \rightarrow 5 \rightarrow 10$ using an increment, a doubling, another increment and finally another doubling. Obviously you can produce any integer $n$ using exactly $n-1$ increments, but for almost all values of n, this is horribly inefficient.
+
+Describe and analyze an algorithm to compute the minimum number of steps required to produce any given integer $n$.}
+{\newproblem{Decrements and Halvings}{15}
+Consider the following process. At all times you have a single positive integer $x$, which is initially equal to 1. In each step, you can either decrement $x$ by 1 or halve $x$ (only if $x$ is even). Your goal is to produce 1 given a starting value $n$. For example, you can reach 1 starting from the integer 10 in four steps as follows: $10 \rightarrow 5 \rightarrow 4 \rightarrow 2 \rightarrow 1$ using an decrement, a halving, another decrement and finally another halving. Obviously you can get to 1 from any integer $n$ using exactly $n-1$ decrements, but for almost all values of $n$, this is horribly inefficient.
+
+Describe and analyze an algorithm to compute the minimum number of steps required to reach 1 from any given integer $n$.}
+\\\\
+\noindent
+\textbf{Note:} \textit{If you use a greedy algorithm, write the pseudocode and prove the algorithm is optimal. If you use a dynamic programming algorithm then instead of pseudocode, use the DP template: English description, Bellman Equation (including the base case), iterative approach, number of subproblems, time for each subproblem, final running time, final value to return.}
+
+
+\newpage
+\newproblem{Chief Chef}{15}
+\ifbool{isexamversionA}{We are designing a self driving vehicle and in each time step the vehicle needs to solve $n$ different types of problems to decide what it should do next. There are $p_i$ independent instances of problem type $i$ to be solved for $1\leq i \leq n$ so that our vehicles decisions are accurate and confident. We have $m$ different Machine Learning frameworks, and framework $j$ can solve at most $t_j$ problems in the time limit, and can solve only a subset $S_j \subseteq \{1, 2, \dots, n\}$ of the $n$ types of problems.
+
+  As chief algorithm designer of the self driving vehicle, it is your duty to ensure that the vehicle can make appropriate decisions in time. Give a polynomial-time algorithm to determine if the self driving vehicle can choose ML frameworks for each problem so that all the problems are solved in time. If it is possible to do so, your algorithm should also return an assignment that indicates how many problems of each type are solved by each framework. There is no need to prove the correctness of the algorithm or state a running time for your algorithm. }
+{Our hotel hosting $n$ extreme sports athletes, and the athletes need $u_i$ units of food each day, for $1\leq i\leq n$, so that they can stay in top physical condition and win. We have $m$ items on our menu and for item $j$ we have enough ingredients to make $f_j$ units of it. Further, athlete have their own dietary restrictions so each food item can only be served to a subset $S_j\subseteq \{1, 2, \dots, n\}$ of the athletes.
+
+As chief chef, it is your duty to feed all guests in a timely manner while satisfying their requirements. Give a polynomial-time algorithm to determine if you can assign food items to each athlete so as to feed all of them. If it is possible to do so, your algorithm should also return an assignment that indicates how many food items of each type is given to each athlete. Give a brief justification of the correctness of your algorithm. State the running time of your algorithm.
+
+If you use another algorithm in a black-box fashion, be sure to account forboth the time it takes to construct an input for the black-box algorithm as well as the time it takes the black-box algorithm to process its input.}
+
+\newpage
+\newcommand{\startPosition}{\ifbool{isexamversionA}{top row}{leftmost column}}
+\newcommand{\finishPosition}{\ifbool{isexamversionA}{bottom row}{rightmost column}}
+\newproblem{Fixing the hacked datacenter}{15}
+
+Someone has hacked Dr. Strangelove's new datacenter, and while the chips are still arranged in an $n\times n$ square $A$, there is no fixed ordering. Each chip is labeled with integer but there is on fixed ordering. Dr. Strangelove can fix it but you need to help him find the largest sum path from the \startPosition{} to the \finishPosition{} where at every step you can either move to the right or move down.
+
+The largest sum path is the path from any entry on the \startPosition{} to any entry on the \finishPosition{} such that the sum of the entries on the path is the largest. Your algorithm is given the square arrangement of the chips and labels and should return the maximum possible sum from \startPosition{} to \finishPosition{} so that Dr. Strangelove can fix the hacked datacenter.
+\\\\
+\noindent
+\textbf{Note:} \textit{If you use a greedy algorithm, write the pseudocode and prove the algorithm is optimal. If you use a dynamic programming algorithm then instead of pseudocode, use the DP template: English description, Bellman Equation (including the base case), iterative approach, number of subproblems, time for each subproblem, final running time, final value to return.}
+
+\end{document}
