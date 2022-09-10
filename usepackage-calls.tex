@@ -1,0 +1,126 @@
+
+% The standard way to use the beamer class
+%
+% dvipsnames is needed to get nice names for colors
+% aspectratio makes it more suited to the 16:9 ratio on my laptop
+%
+% \documentclass[aspectratio=169,dvipsnames,handout]{beamer}
+%
+%
+
+% For my math stuff
+\usepackage{math-commands-preamble}
+%
+% Including math-commands-preamble already includes:
+%
+% \usepackage{amsmath}        % Math typesetting
+% \usepackage{amsthm}         % Theorem and other such environments for math
+% \usepackage{amsfonts}       % Fonts specific to math
+% \usepackage{amssymb}        % Math symbols
+% \usepackage{mathtools}      % more math related tools
+% \usepackage{bm}             % For better bold symbols in math land
+% \usepackage{latexsym}       % LaTeX symbols font
+% \usepackage{nicefrac}       % For better fractions in text: 1/2 will be better.
+% \usepackage{mathdots}       % Improves \ddots, \vdots, and provides \iddots
+%%%% %%%% %%%% %%%% %%%% %%%% %%%% %%%%
+%%%% %%%% %%%% %%%% %%%% %%%% %%%% %%%%
+
+
+% Geometry
+\usepackage[left=0.1\paperwidth, right=0.1\paperwidth, textwidth=0.8\paperwidth, top=0.1\paperheight, bottom=0.1\paperheight, textheight=0.8\paperheight, marginparwidth=0.15\paperwidth, marginparsep=3ex]{geometry}
+% Also set all indentation to 0.
+% \setlength\parindent{0pt}
+% \usepackage[indent=0pt, parfill=3em]{parskip}
+\usepackage{parskip}            %Handle paragraph indentation a little better.
+
+
+\usepackage[utf8]{inputenc}            % Input encoding to allow utf-8 input
+\usepackage[T1]{fontenc}               % use 8-bit T1 fonts
+\usepackage{microtype}                 % microtypography
+\usepackage[dvipsnames]{xcolor}        % See also: https://en.wikibooks.org/wiki/LaTeX/Colors
+\usepackage{graphicx}                  % For including images in the PDF.
+\graphicspath{{./graphs/},{./images/}} %folders to check for images/graphs in.
+\usepackage{float}                     % nicer tables/figures/other floating boxes
+\usepackage{wrapfig}                   % wrap text content all around figures
+
+% Table specific
+\usepackage{booktabs}           % For professional quality tables
+\usepackage{array}              % For better tables
+\usepackage{multirow}           % For fancy stuff in tables
+\usepackage{multicol}           % For dealing with content on multiple columns
+\usepackage{caption}            % ?????
+\usepackage{subcaptions}        % for captioning and labeling subfigures
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}m{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}m{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}m{#1}}
+
+
+
+\usepackage{enumitem}           % Better enumerate environment
+\usepackage{tikz}               % For any drawings done in LaTeX itself.
+\usepackage{etoolbox}           % if/then/else, booleans, and other tools and goodies
+\usepackage{fancyhdr}           % Page headers for exams, details are available below.
+
+
+% This requires no packages at all
+\newcommand{\graffiti}[1]{\marginpar{\textit{#1}}}
+% If you want fancier:
+\usepackage{marginnote}         % margin graffiti (for side comments in solutions).
+\newcommand{\graffiti}[1]{\marginnote{\raggedright\textsl{#1}}}
+% This command is all that is needed, so putting it here instead of with others.
+
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+
+\usepackage{url}                % simple URL typesetting
+\usepackage{hyperref}           % Handling hyperlinks
+\hypersetup{                    % some setup for URLs/hyperlinks
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+% AFTER hyperref
+\usepackage[capitalise,noabbrev]{cleveref}           % For handling references better.
+
+
+
+% Unsure if needed but might be useful when adding PDFs/tikz figures as is.
+\usepackage{standalone}
+%
+% All require packages should end above here. Other than pgfkeys and pgfopts
+%
+
+
+% I think this was best done in the repo for course problem sets.
+% The following is for setting options for this package
+% Primarily used for author/course name, settings type of handout and so on.
+%
+% kvoptions-patch was suggested to be added before pgfkeys
+% so that spaces and commas in values are handled better.
+% \usepackage{kvoptions-patch}
+% A quick overview and some simple examples for pgfkeys can be found here:
+% http://www.tug.org/TUGboat/tb30-1/tb94wright-keyval.pdf
+\usepackage{pgfkeys}
+% Similarly, for pgfopts, the manual is a good thing to read:
+% http://mirrors.ctan.org/macros/latex/contrib/pgfopts/pgfopts.pdf
+\usepackage{pgfopts}
+% Another simple example pgfkey setup (beyond what's there in the Wright PDF)
+% is available at: https://tex.stackexchange.com/a/34318
+% The full documentaton is a section in the PGF manual:
+% http://mirrors.ctan.org/graphics/pgf/base/doc/pgfmanual.pdf
+
+
+% Various font related things
+\usepackage{concrete-math-fonts}
+\usepackage{lmodern}
+\usepackage{helvet}
+\usepackage{fourier}            % Fits well with the Euler math stuff
+\usepackage[utopia]{mathdesign}
+\usepackage[charter]{mathdesign}
+\usepackage{inconsolata}
+\usepackage{montserrat}
