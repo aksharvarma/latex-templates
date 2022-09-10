@@ -1,0 +1,410 @@
+\documentclass{beamer}
+% \documentclass[handout]{beamer}
+
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+\usepackage{graphicx, url}
+\usepackage{booktabs, array, subcaption, multirow, float, wrapfig, caption}
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\graphicspath{{./images/}}
+\usepackage{epstopdf}
+\usepackage{xcolor}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows, fit, shapes, backgrounds, calc, positioning, snakes, tikzmark}
+
+\usetheme{Boadilla}
+\usecolortheme{dolphin}
+
+
+\bibliographystyle{alpha}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+
+
+\makeatletter
+\newenvironment<>{proofs}[1][\proofname]{%
+    \par
+    \def\insertproofname{#1\@addpunct{.}}%
+    \usebeamertemplate{proof begin}#2}
+  {\usebeamertemplate{proof end}}
+\makeatother
+
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}m{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}m{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}m{#1}}
+
+
+\newcommand{\nmts}{\textsc{NMTS}}
+\newcommand{\nmtsfull}{\textsc{Numerical Matching with Target Sums}}
+\newcommand{\nmtsk}{\textsc{NMTS-K}}
+\newcommand{\threeP}{\textsc{3-Partition}}
+
+\newcommand{\kpwt}{\textsc{K-PwT}}
+\newcommand{\gpwt}{\textsc{GPwT}}
+\newcommand{\sssk}{$\R(\I_{\S})$}
+\newcommand{\sssgen}{\textsc{SSS-Gen}}
+
+\newcommand{\npc}{NP-Complete}
+\newcommand{\npcness}{NP-completeness}
+\newcommand{\snpc}{strongly \npc{}}
+\newcommand{\snpcness}{strong \npc{}ness}
+\newcommand{\pptrans}{pseudo-polynomial transformation}
+
+\newcommand{\pr}[1]{\Pr\left[#1\right]}
+\newcommand{\prOther}[2]{\mathop{\Pr}_{#1}\left[#2\right]}
+\newcommand{\E}[2]{\mathop{\mathbb{E}}_{#1}\left[#2\right]}
+
+\newcommand{\I}{\text{I}}
+\newcommand{\R}{\text{E}}
+\newcommand{\T}{\text{T}}
+\renewcommand{\S}{\text{S}}
+\newcommand{\D}{\text{D}}
+\renewcommand{\H}{\text{H}}
+\newcommand{\ITR}{\text{ITR}}
+
+
+% \newcommand{\specialtext}[1]{\emph{\textsf{#1}}}
+\newcommand{\specialtext}[1]{\mathit{#1}}
+\newcommand{\child}[1]{\specialtext{C}(#1)}
+\newcommand{\outdeg}[1]{\specialtext{O}(#1)}
+\newcommand{\indeg}[1]{\specialtext{I}(#1)}
+\newcommand{\outdegWG}[2][]{\specialtext{O}_{#1}(#2)}
+\newcommand{\indegWG}[2][]{\specialtext{I}_{#1}(#2)}
+\newcommand{\subsize}[1]{\specialtext{S}(#1)}
+\newcommand{\reach}[1]{\specialtext{R}(#1)}
+
+\newcommand{\approxfactor}{$(O(\log n), O(\log n))$}
+
+
+\newcommand{\Max}[1]{\textsc{Max[\textnormal{#1}]}}
+\newcommand{\Length}[1]{\textsc{Length[\textnormal{#1}]}}
+\newcommand{\f}{\textit{f}}
+
+\newcommand{\numRoundings}{24\ln n}
+
+% \newcounter{exampleCounter}
+% \newtheorem{myexample}[exampleCounter]{Example}
+% \newtheorem{instance}[theorem]{Instance}
+% \newtheorem{myremark}[theorem]{Remark}
+
+\newcommand{\psc}{\,}
+
+
+% put page numbers
+\setbeamertemplate{footline}[frame number]{}
+\setbeamertemplate{headerline}{}
+% remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% \usepackage[backend=bibtex,sorting=none]{biblatex}
+% \addbibresource{presentation.bib}
+
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Overview}
+    \tableofcontents[currentsection]
+  \end{frame}
+  \addtocounter{framenumber}{-1}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}
+    \frametitle{Overview}
+    \tableofcontents[sectionstyle=show/shaded,currentsubsection]
+  \end{frame}
+  \addtocounter{framenumber}{-1}
+}
+
+\newcommand{\1}{\mathbf{1}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ip}[1]{\langle#1\rangle}
+
+
+\title{Realization Problems on Reachability Sequences}
+\subtitle{COCOON 2020}
+\author{Matthew Dippel, Ravi Sundaram, \textbf{Akshar Varma}}
+\institute{Northeastern University, Boston}
+\date{August 30, 2020}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+  % \centering
+  % This should be the title page I guess.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Overview}
+  \tableofcontents
+\end{frame}
+\section{The  Reachability Realization Problem}
+\begin{frame}
+  \frametitle{The  Reachability Realization Problem}
+\begin{itemize}[<+(1)->]
+\item \textbf{Reachability value} of a node in a digraph:\\
+  \textit{Number of nodes reachable from the given node.}
+\item \textbf{Reachability Sequence}:\\
+  \textit{A sequence of all reachability values of nodes in the digraph.}
+\item \textbf{Reachability Realization problem}:\\
+  \textit{Is there a digraph with the given Reachability Sequence.}
+\item We look at reachability realization for directed acyclic graphs (DAGs).
+\item Reminiscent of the Graph Realization problem on Degree Sequences~\cite{Erdos-Gallai, Havel, Hakimi}.
+  \vfill
+\item[] Our results show an interesting interplay between the local property of degree and the global property of reachability.
+\end{itemize}
+\end{frame}
+
+\section{Our Results}
+% \subsection{Summary}
+\begin{frame}
+  \frametitle{Our Results}
+  \begin{table}[!htbp]
+    \centering
+    % \begin{tabular}{l@{\hspace{-0.2em}}l@{\hspace{0.75em}}c@{\hspace{0.5em}}r}
+    \begin{tabular}{l@{\hspace{-0.2em}}c@{\hspace{0.5em}}C{8em}R{8em}}
+      \toprule
+      & & \multicolumn{2}{c}{\textbf{Out-degree}}\\
+      & & Unbounded  & Bounded\\
+      \midrule
+      \multirow{2}{5em}{\textbf{In-Degree}} & Unbounded (DAGs) & \only<2->{Linear-time} & \only<3|handout:0>{\npc{}}\only<4->{\approxfactor{}}\\
+      & Bounded \ \ \ (Trees) & \only<3|handout:0>{\npc{}}\only<4->{\approxfactor{}} & \only<3|handout:0>{\npc{}}\only<4->{\approxfactor{}}\\
+      \midrule
+    \end{tabular}
+  \end{table}
+  % \vfill
+  % \begin{itemize}[<+(1)->]
+  % \item Without degree restrictions, DAG realization can be done in linear time.
+  % \item Any degree bound makes the Reachability Realization Problem \snpc{}.
+  % \item We define a notion of bicriteria approximation and give two \approxfactor{} approximation algorithms.
+  % \end{itemize}
+\end{frame}
+
+\begin{frame}
+  Where I saw this first: \url{https://bstn.cc/artifacts/tylerBryson/yoneda_lemma.pdf}
+
+  How Tyler Bryson did the above slides: The Tikzmark package - \url{http://ctan.math.washington.edu/tex-archive/graphics/pgf/contrib/tikzmark/tikzmark.pdf}
+
+  Another thing that might be useful, maybe even to combine with tikzmark: \url{http://tug.ctan.org/macros/latex/contrib/beamer-contrib/spot/spot.pdf}
+
+
+  foo \tikzmarknode{b}{bar}
+\begin{tikzpicture}[overlay, remember picture]
+  \node<2->[draw, rectangle] (b_rect) at (b) {bar};
+  \node<2->[] (b_) at (1.5cm, 1.5cm) {a what?};
+  \draw<2->[] (b_) to (b_rect.north);
+\end{tikzpicture}
+\end{frame}
+
+% % \subsection{Linear-time Algorithm}
+% \begin{frame}
+%   \frametitle{Linear-time Algorithm for DAGs}
+%   \begin{theorem}[DAG reachability]\label{thm:dag-reachability}
+%   Given a reachability sequence $\{r_1, r_2,\allowbreak \dots, r_n\}$ in non-decreasing order there exists a DAG that realizes it iff $r_i \leq i$ for all $i$.
+% \end{theorem}
+% \pause
+% \begin{proof}
+%   \begin{enumerate}[<+->]
+% \item[]
+% \begin{center}
+%   \resizebox{0.25\textwidth}{!}{
+% \begin{tikzpicture}[circle, node distance=6ex, auto]
+%   \begin{scope}[every node/.style={circle, draw=black}]
+%     \node (A) {1};
+%     \node[right of=A] (B) {1};
+%     \node[right of=B] (C) {2};
+%     \node[right of=C] (D) {4};
+%   \end{scope}
+%   \begin{scope}[every edge/.style={draw=black, black}]
+% \uncover<.(3)->{    \path[latex-] (A) edge[bend left=50] (C);}
+% \uncover<.(4)->{    \path[latex-] (A) edge[bend right=50] (D);
+%     \path[latex-] (B) edge[bend right=45] (D);
+%     \path[latex-] (C) edge[bend right=30] (D);}
+% \end{scope}
+% \end{tikzpicture}}
+% \end{center}
+%   \item Only reach nodes with a strictly lower reachability value.
+%   \item Only if: $r_i \leq i$ as at most $i-1$ other nodes have lower reachability.
+%   \item For all $i$, connect node $i$ to the first $r_i- 1$ nodes.
+%   \item<+(1)-> Reachability is exactly $r_i$ as we connect to all children of a node before connecting to a node.
+%   \end{enumerate}
+% \end{proof}
+% \end{frame}
+
+% % \subsection[subsection]{Hardness Intuition}
+% % \begin{frame}
+% %   \frametitle{Hardness Intuition}
+% %   \begin{figure}
+% %     \only<1>{\includegraphics[height=0.8\textheight, keepaspectratio]{tree-stands.pdf}}
+% %     \only<2>{\includegraphics[height=0.8\textheight, keepaspectratio]{tree-stands-attached.pdf}}
+% %   \end{figure}
+% % \end{frame}
+
+% \section{Approximation Algorithms}
+% \subsection{Notion of Bicriteria Approximation}
+% \begin{frame}
+%   \frametitle{Notion of Bicriteria Approximation}
+% \begin{itemize}[<+(1)->]
+% \item $\delta$-\textbf{Degree consistency:}\\
+%   Graph $G$ is $\delta$-degree consistent with graph $H$ if for all nodes $i$:
+% \item[]
+% \begin{align*}
+% \indegWG[G]{i} \in \Big[\indegWG[H]{i}, (1+\delta)\cdot\indegWG[H]{i}\Big]  \quad \textrm{ and } \quad \outdegWG[G]{i} \in \Big[\outdegWG[H]{i}, (1+\delta)\cdot\outdegWG[H]{i}\Big]
+% \end{align*}
+% %   \begin{center}
+% % $\indegWG[H]{i} \leq    \indegWG[G]{i} \leq   \delta \cdot \indegWG[H]{i} \qquad \textrm{ and }\qquad \outdegWG[H]{i} \leq    \outdegWG[G]{i} \leq   \delta \cdot \outdegWG[H]{i}$
+% % \end{center}
+%     \vfill
+%   \item \textbf{$\rho$-reachability consistency:}\\
+%     A tree $G$ is $\rho$-reachability consistent to sequence $r_i$ if for all nodes $i$:
+%   \item[] \begin{center}
+%       $r_i \leq 1 + \sum_{j \in \child{i}} a_j \leq \rho\cdot r_i$
+%     \end{center}
+%   \item[] where $a_i$ are the reachability labels in the approximate solution.
+%     % \item[] For DAGs we use the constraint: $r_i \leq \outdegWG[G]{i} + \max_{j \in \child{i}} a_j \leq \rho\cdot r_i$.
+%     \vfill
+%   \item $G$ \textbf{$(\rho, \delta)$-approximates} graph $H$ if it is $\rho$-reachability consistent and $\delta$-degree consistent with $H$.
+% \end{itemize}
+% \end{frame}
+
+% \subsection{Linear Program Randomized Rounding}
+% % \begin{frame}
+% %   \frametitle{Overview}
+% %   \tableofcontents[sectionstyle=show/shaded,currentsubsection]
+% % \end{frame}
+% % \addtocounter{framenumber}{-1}
+
+% \begin{frame}
+%   \frametitle{Linear Program Randomized Rounding}
+%   \pause
+%   \begin{theorem}[LPRR]\label{thm:lp-rounding}
+%   Given a reachability sequence for a full $k$-ary tree, $T$, we can construct a DAG that is an $(O(\log n), O(\log n))$-approximation to $T$ in $O(n^{\omega+\frac{1}{18}})$-time.
+% \end{theorem}
+% \pause
+% \uncover<+->{Let $f_{ij}$ be the flow from node $i$ to node $j$.}
+% \begin{align*}
+%   \uncover<+->{\quad \min& \quad 1\;\;\\}
+%   \uncover<+->{\textrm{s. t.} &\quad \sum_j f_{ji} = \indeg{i} \;\; \forall i, \tag*{In-degree requirement}\\}
+%   \uncover<+->{&\quad \sum_j f_{ij} = \outdegWG[G]{i}  \;\; \forall i, \tag*{Out-degree requirement}\\}
+%   \uncover<+->{&\quad r_i = 1 + \sum_j f_{ij}\cdot r_j \;\; \forall i, \tag*{Reachability consistency}\\}
+%   \uncover<+->{&\quad f_{ij} = 0 \;\;\forall i, j \textrm{ s.t. } r_i\leq r_j \tag*{Acyclicity}\\}
+%   %The next line was added to fix an unexplainable weird uncovering bug
+%   \uncover<+(-1)->{\textrm{ }}
+% \end{align*}
+% \end{frame}
+
+
+% \begin{frame}
+%   \frametitle{Linear Program Randomized Rounding (Cont.)}
+%   \begin{itemize}[<+(1)->]
+%   \item Round each edge $ij$ to 1 w.p. $f_{ij}$ independently $\numRoundings$ times.
+%     \vfill
+%   % \item In one rounding, vertex $i$ has an expected in-degree of $\indeg{i}$.
+%   %   \vfill
+%   \item Expected in-degree value $\mu_{in} = \numRoundings \cdot \indeg{i}$.
+%     \vfill
+%   \item By Chernoff bound, $\pr{\textrm{In-degree not in } (1\pm\frac{1}{2})\mu_{in}} \leq \frac{2}{n^2}$.% the probability of the node's in-degree being outside $(1\pm\eps)\mu_{in}$ is at most $\frac{2}{n^2}$.
+%     \vfill
+%   \item A similar argument applies for out-degrees and reachability values.
+%     \vfill
+%     \item Union bound $\implies \pr{\textrm{Algorithm Failure}} \leq 3n\cdot\frac{2}{n^2} = o(1)$.
+% \end{itemize}
+% \end{frame}
+
+
+% \subsection{Deterministic Sieving using Hurkens-Schrijver (DSHS)}
+
+% % \begin{frame}
+% %   \frametitle{Overview}
+% %   \tableofcontents[sectionstyle=show/shaded,currentsubsection]
+% % \end{frame}
+% % \addtocounter{framenumber}{-1}
+
+% \begin{frame}
+%   \frametitle{The Hurkens-Schrijver $t$-set packing algorithm}
+% \pause
+%   \begin{itemize}[<+->]
+%   \item Given a collection of sets with each set of cardinality $t$, the $t$-set packing problem is to find the largest \textit{disjoint} sub-collection.
+%       \vspace{1em}
+% \item This has an $n^{O(t^3)}$-time $\frac{3}{t+3}$ approximation algorithm~\cite{furer-yu-set-packing, hurkens-schrijver-set-packing}.
+%   \vspace{1em}
+% \item Our algorithm, Deterministic Sieving using Hurkens-Schrijver (DSHS) has two phases, both of which solve $(k+1)$-set packing problems.
+% \end{itemize}
+%   \vfill
+% \uncover<+->{\begin{theorem}[Deterministic Sieving using Hurkens-Schrijver]\label{thm:deterministic-Hurkens-Schrijver}
+%   Given a reachability sequence for a full $k$-ary tree, $T$, we can construct a DAG that is an $(O(\log n), O(\log n))$-approximation to $T$ in $n^{O(k^3)}$-time.
+% \end{theorem}}
+% \end{frame}
+
+
+% \begin{frame}
+%   \frametitle{Deterministic Sieving using Hurkens-Schrijver (DSHS)}
+%   \begin{proofs}[\proofname{ Sketch}]
+%     \pause
+% \begin{itemize}[<+->]
+% \item[1.] \textit{MatchChildren:} ensures that every node's out-degree is satisfied.
+% \item[-] Universe consisting of $V$ and $P_t$, all nodes that need children.
+% \item[-] Collection: Pick a node $i\in P_t$ and $j_1, j_2, \ldots, j_k$ from $V$ such that $r_i = 1 + r_{j_1} + r_{j_2} + \ldots + r_{j_k}$.
+%   \vspace{2em}
+% \item[2.] \textit{MatchParent:} ensures that every node's in-degree is satisfied.
+% \item[-] Universe consisting of all nodes $V$ and $C_t$, the candidate nodes.
+% \item[-] Collection: Pick a child node $i\in C_t$ and $j, j_1, j_2, \ldots, j_{k-1} \in V$ such that $r_j = 1 + r_i + r_{j_1} + r_{j_2} + \ldots + r_{j_{k-1}}$.
+% % \item[-] Collection: Pick a child node $i\in P_t$, a parent node $j \in V$ and the remaining $k-1$ children $j_1, j_2, \ldots, j_{k-1} \in V$ such that $r_j = 1 + r_i + r_{j_1} + r_{j_2} + \ldots + r_{j_{k-1}}$.
+% \end{itemize}
+% \end{proofs}
+% \end{frame}
+
+% % \subsection{Comparison of Approximation Algorithms}
+% % \begin{frame}
+% %   \frametitle{Comparison of Approximation Algorithms}
+% %   \begin{itemize}[<+(1)->]
+% %   \item DSHS runs in $n^{O(k^3)}$ vs. the LPRR algorithm runs in $O(n^{\omega})$.
+% %     \vfill
+% %   \item DSHS's solutions are simple graphs vs. LPRR's solutions contains multi-edges.
+% %     \vfill
+% %   \item Multi-edges give tighter concentration, so LPRR is desirable when certainty is more important than consistency.
+% %     \vfill
+% %   \item However, perhaps the more common application requirement is to have simple digraph solutions, which DSHS provides.
+% %   \end{itemize}
+% % \end{frame}
+
+% \section{Open Problems}
+% \begin{frame}
+%   \frametitle{Summary and Open Problems}
+%   \pause
+% \uncover<+->{  \begin{table}[!htbp]
+%     \centering
+%     \begin{tabular}{l@{\hspace{-0.2em}}c@{\hspace{0.5em}}C{8em}R{8em}}
+%       \toprule
+%       & & \multicolumn{2}{c}{\textbf{Out-degree}}\\
+%       & & Unbounded  & Bounded\\
+%       \midrule
+%       \multirow{2}{5em}{\textbf{In-Degree}} & Unbounded (DAGs) & Linear-time & \approxfactor{}\\
+%       & Bounded \ \ \ (Trees) & \approxfactor{} & \approxfactor{}\\
+%       \midrule
+%     \end{tabular}
+%   \end{table}}
+
+% \vfill
+
+% \uncover<+->{\textbf{Open Problems:}}
+%  \begin{itemize}[<+->]
+%  \item Derandomizing LPRR to reduce multi-edges in the solutions.
+%  \item Algorithms with good running time \textit{and} simple solutions.
+%  \item If better approximation isn't possible, hardness of approximation.
+%  \item Graphs with cycles; our results are limited to acyclic graphs.
+%  \end{itemize}
+% \end{frame}
+
+% % \nocite{}
+% \footnotesize
+% \bibliography{presentation}
+
+\end{document}
