@@ -1,0 +1,29 @@
+% This is a ``package'' that contains many of my preferred math commands
+% Particularly, it has things for probability, linear algebra, complexity
+% and I'm sure many other miscellaneous things as well.
+%
+% Author: Akshar Varma
+% Some of these commands were inspired by LaTeX code that I picked up from
+% those that were used by Daniel Wichs, Huy Nguyen, Ravi Sundaram, Hongyang Zhang
+% I have since changed/rewritten a lot of it, but they did inspire aspects.
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{concrete-math-fonts}[Style file used to set the Concrete+Euler fonts.]
+%
+%
+
+% Setting the Concrete fonts.
+% Requires fontenc
+\RequirePackage[T1]{fontenc}
+% http://www.texfaq.org/FAQ-concrete
+% Also, http://texdoc.net/texmf-dist/doc/fonts/concmath/concmath.pdf
+% This italicizes the math font which looks off after reading the book.
+% So don't want that math font.
+% \RequirePackage[amsfonts, amssymb, boldsans]{concmath}
+% These are a better match, so going with these.
+\RequirePackage{ccfonts}        %Order matters
+% Euler ensure upright math font.
+\RequirePackage{eulervm}        %This should be after other font settings.
+% The following line makes sure that the bold font is correct.
+% This fixes whatever eulervm messes up for bold fonts.
+\DeclareTextFontCommand{\textbf}{\bfseries\fontfamily{cmr}\selectfont}
