@@ -1,0 +1,138 @@
+\documentclass[final]{beamer}
+% \usetheme{RJH} % http://robjhyndman.com/research/beamerthemeRJH.sty
+% http://robjhyndman.com/hyndsight/beamer-poster/
+
+% This is based on a template taken from:
+% http://robjhyndman.com/research/postertemplate.tex
+
+\usetheme{Berlin} % 
+\setbeamertemplate{footer}{}
+\setbeamertemplate{navigation symbols}{}
+% \usetheme{classic}
+% \usecolortheme{seagull}
+
+\usepackage[orientation=landscape,size=a3,scale=1.2,debug]{beamerposter}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{graphicx}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{lipsum}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+\bibliographystyle{plainurl}
+
+
+\setlength{\TPHorizModule}{\paperwidth}
+\setlength{\TPVertModule}{\paperheight}
+
+% \newlength{\posterWidth}
+% \setlength{\posterWidth}{595pt}
+% \newlength{\posterHeight}
+% \setlength{\posterHeight}{842pt}
+
+% \newlength{\titleSize}
+% \setlength{\titleSize}{0.9\posterWidth}
+% \newlength{\titleHorPos}
+% \setlength{\titleHorPos}{.05\posterWidth}
+% \newlength{\titleVerPos}
+% \setlength{\titleVerPos}{.07\posterWidth}
+
+
+\title{Title}
+\author{Auhtor}
+% \footer{More information at \texttt{robjhyndman.com}}
+\institute[Inst]{Insitute}
+
+\date{\today}
+
+\begin{document}
+
+\begin{frame}{\hfill Some heading} 
+  \begin{textblock}{0.45}(0.025,0.06)
+  % \begin{textblock}{200}(5,15)
+  \centering
+    \begin{block}{}
+      \centering
+      \maketitle
+    \end{block}
+  \end{textblock}
+  
+  % \begin{textblock}{0.225}(0.0125,0.225)
+  \begin{textblock}{0.225}(0.0125,0.25)
+    \begin{block}{Block title?}
+      \lipsum[1]
+    \end{block}
+    \vfill
+    \begin{block}{Another title}
+      \centering
+        % \includegraphics[height=0.5\linewidth, width=0.95\linewidth,
+        % keepaspectratio]{image.png}
+      \begin{flushleft}
+      This would work as the image caption
+    \end{flushleft}
+    \end{block}
+    \vfill
+    \begin{block}{More block headings}
+      \lipsum[3]
+      \begin{itemize}
+      \item
+        asdfadf
+      \item
+        asdfasdadg
+        \begin{itemize}
+        \item
+          8htrgfieurgkl
+        \item
+          ag8tj34igjoerg
+        \item
+         aoigjaoiergmoakerg
+        \end{itemize}
+      \end{itemize}
+    \end{block}
+
+  \end{textblock}
+
+  % The second column of under the title starts here
+  \begin{textblock}{0.225}(0.2625,0.25)
+    \begin{block}{headings are perennial}
+      \begin{gather}
+        \pi(x)=\prod_{\beta_1,\beta_2}{r(\beta_1,\beta_2)^{f(\beta_1,\beta_2)}}\nonumber
+      \end{gather}
+
+      \lipsum[1]
+    \end{block}
+
+    \begin{block}{asdf}
+      \lipsum[1]
+      \begin{center}
+        \begin{tabular}{l*{5}l}
+          Keyword  &whitew &hitewh& it &ewhi& tewhi\\
+          Plaintext&  divert&troops& to &east& ridge\\
+          Ciphertext&  zpdxvp& azhslz& bh &iwzb &kmznm\\
+        \end{tabular}
+      \end{center}
+    \end{block}
+
+  \end{textblock}    
+
+  \begin{textblock}{0.225}(0.5125,0.06)
+    \begin{block}{Column besides the title}
+      \lipsum[50]
+    \end{block}
+  \end{textblock}    
+  
+  % The second column starts here.
+  \begin{textblock}{0.225}(0.7625,0.06)
+    \begin{block}{Columns more}
+\lipsum[100]
+    \end{block}
+
+    \begin{block}{References}
+      Template.
+    \end{block}
+  \end{textblock}
+
+\end{frame}
+\end{document}
